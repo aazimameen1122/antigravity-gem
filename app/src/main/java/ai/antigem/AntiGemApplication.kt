@@ -63,15 +63,8 @@ class AntiGemApplication : Application(), coil.ImageLoaderFactory {
         ai.antigem.data.pc.PcConnect.init(this)
         // the cloud project new Antigravity chats start in (Remote Agents), before the first chat is created
         ai.antigem.data.agent.agy.AgyCloud.init(this)
-        // Forks build with their own key, so only official release APKs report real usage.
-        if (!BuildConfig.DEBUG && !isOfficialRelease()) {
-            Toast.makeText(
-                this,
-                "Unofficial build: analytics disabled. Developer: set your own TelemetryDeck app ID and RELEASE_CERT_SHA256 in AntiGemApplication.kt.",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
+        // Antigravity Gem builds sign with this fork's own key, so upstream analytics stays off — silently.
+        if (!BuildConfig.DEBUG && !isOfficialRelease()) return
         TelemetryDeck.start(
             this,
             TelemetryDeck.Builder()

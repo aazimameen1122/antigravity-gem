@@ -2,15 +2,22 @@
 
 Fork of Santoshkurmi/antigem v2.0.3 (commit e721833), GPL-3.0. Started 2026-11-23.
 
-## Package decision (v1)
-Display name is "Antigravity Gem", but `applicationId` stays `ai.antigem`.
-Reason: AntiGem relocates Termux packages by rewriting `com.termux` to the app
-package byte-for-byte; both strings are exactly 10 characters. Renaming the
-package means auditing every place that assumes that length (bootstrap
-installer, apt/dpkg hooks, termux-am build, Go bridge strings, debug variant
-`ai.antidev`). Until that audit is complete and verified on-device, the safe
-v1 keeps `ai.antigem`. A future rename must use another 10-character package
-(e.g. `aazim.code`) and be verified end to end.
+## Package decision
+Display name is "Antigravity Gem"; `applicationId` is **`aazim.gems`**
+(Aazim's call, 2026-11-23; debug variant `aazim.gemd`). AntiGem relocates
+Termux packages by rewriting `com.termux` to the app package byte-for-byte,
+so the new package had to be exactly 10 characters — `aazim.gems` is.
+The audit covered: `applicationId` + debug variant in `app/build.gradle.kts`,
+`TermuxRelocation.RELEASE_PACKAGE`, `TERMUX_PACKAGE_NAME` in
+`termux-am-build/build.gradle.kts` (the `am` binary's intent package), the
+own-prefix paths in `assets/bin/` scripts, and the Go relocate tests.
+The Kotlin **namespace and all source packages stay `ai.antigem.*`** — those
+are class names, not the app identity, and manifest component/action names
+built on them stay consistent. On-device verification (first-run setup,
+terminal, `am`) is still the real verdict.
+Also fixed on the way: upstream's "Unofficial build: analytics disabled"
+developer Toast fired on every cold start of any fork-signed build — removed;
+upstream TelemetryDeck analytics now stays off silently.
 
 ## Signing
 Releases are signed with this fork's own permanent key (`app/release.jks`,

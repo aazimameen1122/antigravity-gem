@@ -56,7 +56,7 @@ android {
     compileSdk = 37
     compileSdkMinor = 1
     defaultConfig {
-        applicationId = "ai.antigem"
+        applicationId = "aazim.gems"
         minSdk = 24
         targetSdk = 28
         versionCode = appVersionCode
@@ -551,7 +551,7 @@ androidComponents {
         // have the length of com.termux (10): the Termux packages are rewritten for it byte for byte.
         // TEMPORARY: x86_64 debug builds stay ai.antigem while the x86_64 rootfs is made on the emulator (its backup
         // must have ai.antigem paths). Remove `&& !isX86` once that rootfs is hosted.
-        if (variant.buildType == "debug" && !isX86) variant.applicationId.set("ai.antidev")
+        if (variant.buildType == "debug" && !isX86) variant.applicationId.set("aazim.gemd")
 
         val amBuildType = if (variant.buildType == "release") "release" else "debug"
         val termuxAm = tasks.register<TermuxAmAssetTask>("termuxAm${variant.name.replaceFirstChar { it.uppercase() }}") {

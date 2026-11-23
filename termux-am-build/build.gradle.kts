@@ -20,7 +20,7 @@ android {
         targetSdk = 27
         versionCode = 2
         versionName = "0.8.1"
-        buildConfigField("String", "TERMUX_PACKAGE_NAME", "\"ai.antigem\"")
+        buildConfigField("String", "TERMUX_PACKAGE_NAME", "\"aazim.gems\"")
     }
     buildFeatures {
         buildConfig = true

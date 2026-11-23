@@ -8,7 +8,7 @@ By [Aazim Ameen](https://github.com/aazimameen1122).
 
 ## Download
 
-Get the latest APK from [Releases](https://github.com/aazimameen1122/antigravity-gem/releases). The app package is `ai.antigem` (kept for Termux package compatibility — see `PORTING.md`); it sets up its own Linux environment and can be installed next to Termux.
+Get the latest APK from [Releases](https://github.com/aazimameen1122/antigravity-gem/releases). The app package is `aazim.gems`; it sets up its own Linux environment and can be installed next to Termux.
 
 - `AntigravityGem-v<version>.apk` — normal build (arm64 phones)
 - `AntigravityGem-v<version>-chroot.apk` — with the Ubuntu chroot bridge (rooted phones)
