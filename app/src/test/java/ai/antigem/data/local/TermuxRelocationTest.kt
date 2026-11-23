@@ -1,4 +1,4 @@
-package ai.antigem.data.local
+package aazim.gems.data.local
 
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
@@ -49,17 +49,17 @@ class TermuxRelocationTest {
             "-n com.termux/com.termux.app.TermuxOpenReceiver\n" +
             "app_process / com.termux.x11.Loader; am broadcast -a com.termux.x11.CHANGE_PREFERENCE -p com.termux.x11\n"
         val bytes = text.toByteArray()
-        val full = String(TermuxRelocation.rewrite(bytes, "ai.antigem"))
+        val full = String(TermuxRelocation.rewrite(bytes, "aazim.gems"))
         assertEquals(
-            "#!/data/data/ai.antigem/files/usr/bin/sh\nexec app_process / com.termux.termuxam.Am\n" +
-                "-n ai.antigem/ai.antigem.app.TermuxOpenReceiver\n" +
-                "app_process / com.termux.x11.Loader; am broadcast -a com.termux.x11.CHANGE_PREFERENCE -p ai.antigem.x11\n",
+            "#!/data/data/aazim.gems/files/usr/bin/sh\nexec app_process / com.termux.termuxam.Am\n" +
+                "-n aazim.gems/aazim.gems.app.TermuxOpenReceiver\n" +
+                "app_process / com.termux.x11.Loader; am broadcast -a com.termux.x11.CHANGE_PREFERENCE -p aazim.gems.x11\n",
             full
         )
-        val paths = String(TermuxRelocation.rewrite(bytes, "ai.antigem", pathsOnly = true))
+        val paths = String(TermuxRelocation.rewrite(bytes, "aazim.gems", pathsOnly = true))
         assertEquals(
-            "#!/data/data/ai.antigem/files/usr/bin/sh\nexec app_process / com.termux.termuxam.Am\n" +
-                "-n com.termux/ai.antigem.app.TermuxOpenReceiver\n" +
+            "#!/data/data/aazim.gems/files/usr/bin/sh\nexec app_process / com.termux.termuxam.Am\n" +
+                "-n com.termux/aazim.gems.app.TermuxOpenReceiver\n" +
                 "app_process / com.termux.x11.Loader; am broadcast -a com.termux.x11.CHANGE_PREFERENCE -p com.termux.x11\n",
             paths
         )
@@ -91,15 +91,15 @@ class TermuxRelocationTest {
     /** The scripts written into the Linux system (apt hook, dpkg wrapper) must be valid shell; copies land in build/. */
     @Test
     fun generatedScriptsAreValidShell() {
-        val prefix = "/data/data/ai.antigem/files/usr"
+        val prefix = "/data/data/aazim.gems/files/usr"
         val relocator = "$prefix/libexec/antigem/relocate-debs"
         val out = File("build/generated-test-scripts").apply { mkdirs() }
         val scripts = mapOf(
-            "relocate-debs" to TermuxRelocation.relocateScript(prefix, "ai.antigem"),
+            "relocate-debs" to TermuxRelocation.relocateScript(prefix, "aazim.gems"),
             "dpkg" to TermuxRelocation.dpkgWrapper(prefix, relocator),
-            "termux-api" to LocalEnvironmentManager.termuxApiDispatcherScript("ai.antigem", external = false, appInstalled = false),
-            "termux-api-external" to LocalEnvironmentManager.termuxApiDispatcherScript("ai.antigem", external = true, appInstalled = true),
-            "termux-api-external-missing" to LocalEnvironmentManager.termuxApiDispatcherScript("ai.antigem", external = true, appInstalled = false)
+            "termux-api" to LocalEnvironmentManager.termuxApiDispatcherScript("aazim.gems", external = false, appInstalled = false),
+            "termux-api-external" to LocalEnvironmentManager.termuxApiDispatcherScript("aazim.gems", external = true, appInstalled = true),
+            "termux-api-external-missing" to LocalEnvironmentManager.termuxApiDispatcherScript("aazim.gems", external = true, appInstalled = false)
         )
         for ((name, text) in scripts) {
             val f = File(out, name).apply { writeText(text) }
@@ -181,8 +181,8 @@ class TermuxRelocationTest {
     @Test
     fun rewriteChangesOnlyTheMatchedBytes() {
         val bytes = "x/com.termux y com.termux.termuxam z com.termux".toByteArray()
-        val out = TermuxRelocation.rewrite(bytes, "ai.antigem")
+        val out = TermuxRelocation.rewrite(bytes, "aazim.gems")
         assertEquals(bytes.size, out.size)
-        assertArrayEquals("x/ai.antigem y com.termux.termuxam z ai.antigem".toByteArray(), out)
+        assertArrayEquals("x/aazim.gems y com.termux.termuxam z aazim.gems".toByteArray(), out)
     }
 }

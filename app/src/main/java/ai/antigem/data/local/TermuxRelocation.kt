@@ -26,7 +26,7 @@ object TermuxRelocation {
     const val TERMUX_PACKAGE = "com.termux"
 
     /**
-     * The release app's package name. A rootfs or backup made by it holds /data/data/ai.antigem paths instead of
+     * The release app's package name. A rootfs or backup made by it holds /data/data/aazim.gems paths instead of
      * com.termux ones; a debug install (ai.antidev) rewrites those paths too ([relocateTree] with releasePaths).
      */
     private const val RELEASE_PACKAGE = "aazim.gems"
