@@ -26,10 +26,13 @@ object TermuxRelocation {
     const val TERMUX_PACKAGE = "com.termux"
 
     /**
-     * The release app's package name. A rootfs or backup made by it holds /data/data/aazim.gems paths instead of
-     * com.termux ones; a debug install (ai.antidev) rewrites those paths too ([relocateTree] with releasePaths).
+     * The package name of the app that made the downloadable rootfs: upstream AntiGem's release package,
+     * ai.antigem. That rootfs (and backups made by the release app) holds /data/data/ai.antigem paths instead
+     * of com.termux ones; any install whose package differs rewrites those paths too ([relocateTree] with
+     * releasePaths). This is the SOURCE package of downloaded artefacts — it must stay "ai.antigem" even
+     * though this app's own package is aazim.gems, or setup leaves the rootfs pointing at a nonexistent prefix.
      */
-    private const val RELEASE_PACKAGE = "aazim.gems"
+    private const val RELEASE_PACKAGE = "ai.antigem"
 
     /** Zip-based files keep CRCs and dex files a checksum: rewriting bytes in them would corrupt them, so they are skipped. */
     private val SKIPPED_EXTENSIONS = setOf("apk", "jar", "zip", "aar", "whl", "dex", "jmod")
