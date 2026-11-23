@@ -1,7 +1,7 @@
 # Intents, links and device events
 
 Mini apps exchange content the way Android apps do. An app declares in its manifest what it accepts ("share text and
-images"); another app calls `AntiGem.intent.send()`, the user picks the target in a native sheet, and the target opens
+images"); another app calls `Antigravity Gem.intent.send()`, the user picks the target in a native sheet, and the target opens
 and receives an `intent` event. Android's own share sheet has a "Mini app" entry that delivers the same way, and
 `antigem-miniapp://` links open an app at a path. This page also covers the events about the outside world: the
 page's lifecycle (`resume`, `pause`) and the device's network and battery status.
@@ -28,21 +28,21 @@ No permission is needed to send or receive.
 
 ```js
 // a file: the user picks Pocket Notes, another mini app, or "Other apps…" (Android's share sheet)
-const r = await AntiGem.intent.send({ action: 'share', path: '/sdcard/DCIM/Camera/IMG_1.jpg', title: 'Sunset' });
+const r = await Antigravity Gem.intent.send({ action: 'share', path: '/sdcard/DCIM/Camera/IMG_1.jpg', title: 'Sunset' });
 // r = {to: 'com.antigem.notes'} | {to: 'android'} | null (cancelled)
 
 // text and a link
-await AntiGem.intent.send({ action: 'share', text: 'Look at this', url: 'https://example.com' });
+await Antigravity Gem.intent.send({ action: 'share', text: 'Look at this', url: 'https://example.com' });
 
 // structured data to an app that knows your format
-await AntiGem.intent.send({ action: 'import-tasks', type: 'application/x-tasks+json', data: { tasks } });
+await Antigravity Gem.intent.send({ action: 'import-tasks', type: 'application/x-tasks+json', data: { tasks } });
 ```
 
 | Option | Type | Default | Meaning |
 |---|---|---|---|
 | `action` | string | `'share'` | Up to 40 characters |
 | `type` | MIME type | from the file's extension; `'text/uri-list'` with a `url`; else `'text/plain'` | Used to find targets |
-| `path` | string | none | A file the app may read (any [AntiGem.fs path](files.md#paths)). It must exist (`NotFoundError`) |
+| `path` | string | none | A file the app may read (any [Antigravity Gem.fs path](files.md#paths)). It must exist (`NotFoundError`) |
 | `text` | string | none | |
 | `url` | string | none | |
 | `title` | string | none | |
@@ -72,18 +72,18 @@ folder, and the receiver needs no storage permission. If the receiver wants to k
 ## Receiving
 
 ```js
-AntiGem.on('intent', async (it) => {
+Antigravity Gem.on('intent', async (it) => {
   if (it.action !== 'share') return;
   if (it.path && it.type?.startsWith('image/')) {
-    const blob = await (await fetch(AntiGem.fs.url(it.path))).blob();   // the grant lasts one day: keep a copy
-    await AntiGem.fs.write(`data/images/${Date.now()}-${it.path.split('/').pop()}`, blob);
+    const blob = await (await fetch(Antigravity Gem.fs.url(it.path))).blob();   // the grant lasts one day: keep a copy
+    await Antigravity Gem.fs.write(`data/images/${Date.now()}-${it.path.split('/').pop()}`, blob);
   }
   addNote([it.title, it.text, it.url].filter(Boolean).join('\n\n'));
-  AntiGem.ui.toast(`Saved from ${it.from?.name ?? 'another app'}`);
+  Antigravity Gem.ui.toast(`Saved from ${it.from?.name ?? 'another app'}`);
 });
 
 // or later: the last intent this page received
-if (AntiGem.intent.current?.action === 'view') openPath(AntiGem.intent.current.path);
+if (Antigravity Gem.intent.current?.action === 'view') openPath(Antigravity Gem.intent.current.path);
 ```
 
 | Field | Meaning |
@@ -99,12 +99,12 @@ if (AntiGem.intent.current?.action === 'view') openPath(AntiGem.intent.current.p
 - When the app is on screen, every open page gets the event at once. Otherwise the event waits, the app opens, and the
   event is delivered to every page once it has loaded (at most 20 waiting events per app, notifications included).
   Register the listener when the page starts so it doesn't miss it.
-- `AntiGem.intent.current` holds the last intent the page received (or `null`).
-- The event is the only thing that happens: the app decides what to show (for example `AntiGem.nav.push`).
+- `Antigravity Gem.intent.current` holds the last intent the page received (or `null`).
+- The event is the only thing that happens: the app decides what to show (for example `Antigravity Gem.nav.push`).
 
 ## Android's share sheet: "Mini app"
 
-When the user shares from any Android app and picks **Mini app**, AntiGem lists the mini apps whose manifest accepts
+When the user shares from any Android app and picks **Mini app**, Antigravity Gem lists the mini apps whose manifest accepts
 `share` with that MIME type. The chosen app opens and gets an `intent` event:
 
 ```js
@@ -114,7 +114,7 @@ When the user shares from any Android app and picks **Mini app**, AntiGem lists 
 - A file is copied into the app's `data/inbox/` first (a name that exists gets a `1-`, `2-`… prefix), so it is the
   app's own. When several files are shared, only the first is delivered.
 - Shared text arrives as `text`, the subject as `title`.
-- A shared `.agapp` package opens AntiGem's installer instead. See
+- A shared `.agapp` package opens Antigravity Gem's installer instead. See
   [signing and distribution](signing-and-distribution.md).
 
 ## Links: antigem-miniapp://
@@ -127,18 +127,18 @@ app.
 
   ```js
   // antigem-miniapp://app/com.example.todo/list/42?highlight=7
-  AntiGem.on('intent', (it) => {
+  Antigravity Gem.on('intent', (it) => {
     if (it.action !== 'view') return;
     // it = {action: 'view', path: 'list/42', params: {highlight: '7'},
     //       url: 'antigem-miniapp://app/com.example.todo/list/42?highlight=7', from: {id: 'link', name: 'Link'}}
     const [, listId] = it.path.split('/');
-    AntiGem.nav.push('list.html', { id: listId, highlight: it.params.highlight });
+    Antigravity Gem.nav.push('list.html', { id: listId, highlight: it.params.highlight });
   });
   ```
 
 - The path is not loaded for you; it is only data. Values in `params` are strings.
-- A mini app can't open these links itself (`AntiGem.device.openUrl` only opens `http(s)`, `mailto` and `tel`): to
-  hand something to another mini app, use `AntiGem.intent.send`.
+- A mini app can't open these links itself (`Antigravity Gem.device.openUrl` only opens `http(s)`, `mailto` and `tel`): to
+  hand something to another mini app, use `Antigravity Gem.intent.send`.
 
 ## Lifecycle events
 
@@ -147,8 +147,8 @@ Each page gets `pause` when its screen leaves the front, and `resume` when it co
 save and stop work nobody sees.
 
 ```js
-AntiGem.on('resume', () => refreshList());
-AntiGem.on('pause', () => saveDraft());
+Antigravity Gem.on('resume', () => refreshList());
+Antigravity Gem.on('pause', () => saveDraft());
 ```
 
 - The first open sends no `resume`, by design: that is the page's own load. Run your start-up code directly.
@@ -157,10 +157,10 @@ AntiGem.on('pause', () => saveDraft());
 
 ## Device status
 
-`AntiGem.device.status()` returns the network and battery now. No permission is needed.
+`Antigravity Gem.device.status()` returns the network and battery now. No permission is needed.
 
 ```js
-const { network, battery } = await AntiGem.device.status();
+const { network, battery } = await Antigravity Gem.device.status();
 if (!network.online) showOfflineBanner();
 if (network.metered) useLowQualityImages();
 if (battery.saver) disableAnimations();
@@ -180,9 +180,9 @@ events when something changes. They are not sent while the page is in the backgr
 you need the current values.
 
 ```js
-AntiGem.on('network', (n) => setOffline(!n.online));
-AntiGem.on('battery', (b) => (b.saver ? reduceWork() : null));
-AntiGem.on('resume', async () => setOffline(!(await AntiGem.device.status()).network.online));
+Antigravity Gem.on('network', (n) => setOffline(!n.online));
+Antigravity Gem.on('battery', (b) => (b.saver ? reduceWork() : null));
+Antigravity Gem.on('resume', async () => setOffline(!(await Antigravity Gem.device.status()).network.online));
 ```
 
 ## Limits and errors

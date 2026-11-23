@@ -1,6 +1,6 @@
 # manifest.json
 
-Every mini app has a `manifest.json` at the root of its folder. It gives the app its id, name, version, icon and color, and declares what the app may use: permissions, a background script, the intents it accepts and the data group it shares with. This page lists every field exactly as AntiGem reads it: types, defaults, validation and what happens with wrong values. Unknown fields are ignored.
+Every mini app has a `manifest.json` at the root of its folder. It gives the app its id, name, version, icon and color, and declares what the app may use: permissions, a background script, the intents it accepts and the data group it shares with. This page lists every field exactly as Antigravity Gem reads it: types, defaults, validation and what happens with wrong values. Unknown fields are ignored.
 
 ## A complete example
 
@@ -54,7 +54,7 @@ Most apps need far less. A typical offline app:
 
 | Field | Type | Required | Default | Notes |
 |---|---|---|---|---|
-| `manifest_version` | number | no | – | Not read by AntiGem today. Write `1`. |
+| `manifest_version` | number | no | – | Not read by Antigravity Gem today. Write `1`. |
 | `id` | string | **yes** | – | 1–100 characters: letters, digits, `.`, `_`, `-`; the first one a letter or digit. See [id](#id). |
 | `name` | string | no | the folder name | Shown in the Mini Apps grid, Recents, the splash screen and home-screen shortcuts. |
 | `version` | string | no | `"0.0.0"` | Shown to users. Also gives `version_code` when that is missing. |
@@ -62,7 +62,7 @@ Most apps need far less. A typical offline app:
 | `description` | string | no | `""` | One line, shown in App info. |
 | `entry` | string | no | `"index.html"` | The first page, relative to the app folder. A leading `/` is removed. |
 | `icon` | string | no | a letter tile | Path of an image in the app folder. See [icon](#icon). |
-| `theme_color` | string | no | follow the AntiGem theme | Splash, Recents card, status bar, letter icon. See [theme_color](#theme_color). |
+| `theme_color` | string | no | follow the Antigravity Gem theme | Splash, Recents card, status bar, letter icon. See [theme_color](#theme_color). |
 | `permissions` | object or array | no | none | See [permissions](#permissions) and [permissions.md](permissions.md). |
 | `required_permissions` | array of strings | no | none | Permissions the app can't open without. See [required_permissions](#required_permissions). |
 | `background` | string or object | no | none | The background-task script. See [background](#background). |
@@ -136,7 +136,7 @@ The page that opens first, relative to the app folder (`"app/start.html"` works)
 - A path inside the app folder; a leading `/` is removed.
 - Use a square PNG, 192 × 192 or larger. It is scaled to a square, so a non-square image is stretched.
 - Android must be able to decode it (PNG, JPEG, WebP). SVG doesn't work.
-- When the field is missing, the file doesn't exist or can't be decoded, AntiGem draws a rounded tile in `theme_color` (or a default violet) with the first letter or digit of `name`.
+- When the field is missing, the file doesn't exist or can't be decoded, Antigravity Gem draws a rounded tile in `theme_color` (or a default violet) with the first letter or digit of `name`.
 
 ## theme_color
 
@@ -148,7 +148,7 @@ Used for the splash screen, the Recents card, the default status-bar color and t
 
 | Value | Meaning |
 |---|---|
-| missing, `""` or `"auto"` | Follow the user's AntiGem theme (its background color) |
+| missing, `""` or `"auto"` | Follow the user's Antigravity Gem theme (its background color) |
 | `#rgb` | Short hex, e.g. `#2a7` |
 | `#rrggbb` | Hex |
 | `#rrggbbaa` | Hex with alpha, CSS order |
@@ -197,7 +197,7 @@ Parsing rules:
 
 ### Manifest warnings
 
-Entries that are ignored or look like a mistake don't stop the app: `"storage"` in the list form, unknown permission names, `"mcp": true`, an empty `network.hosts` or `localhost.ports` list. AntiGem prints each one in the app's console as a warning (`manifest.json: …`) when the app's first page loads and whenever the manifest changes. The Mini App Developer MCP's `miniapp_validate` returns them in its `warnings` ([developer-mcp.md](developer-mcp.md#miniapp_validate)).
+Entries that are ignored or look like a mistake don't stop the app: `"storage"` in the list form, unknown permission names, `"mcp": true`, an empty `network.hosts` or `localhost.ports` list. Antigravity Gem prints each one in the app's console as a warning (`manifest.json: …`) when the app's first page loads and whenever the manifest changes. The Mini App Developer MCP's `miniapp_validate` returns them in its `warnings` ([developer-mcp.md](developer-mcp.md#miniapp_validate)).
 
 ### network options
 
@@ -217,7 +217,7 @@ Entries that are ignored or look like a mistake don't stop the app: `"storage"` 
 
 - `ports`: the ports allowed on servers of this phone (`127.0.0.1`, `localhost`, the phone's own addresses). Missing: any port.
 - An empty `ports` list allows no port, and gives a [manifest warning](#manifest-warnings). Leave `ports` out for any port.
-- AntiGem's own ports are refused whatever is declared ([permissions.md](permissions.md#localhost)).
+- Antigravity Gem's own ports are refused whatever is declared ([permissions.md](permissions.md#localhost)).
 
 ### storage options
 
@@ -238,12 +238,12 @@ Entries that are ignored or look like a mistake don't stop the app: `"storage"` 
 | `{ "full": true }` | `storage:all`, access from `"access"` (default `readwrite`) |
 | `{ "full": "read" }` | `storage:all` with that access |
 | `{ "folders": [...] }` | one `storage:<path>` permission per folder |
-| `{ "pick": ... }` | allows `AntiGem.fs.pickFolder()` |
+| `{ "pick": ... }` | allows `Antigravity Gem.fs.pickFolder()` |
 
 Folder entries:
 
 - An object `{ "path", "access" }`, or just a path string (read only).
-- `path`: `~/...` (AntiGem's home folder), `/sdcard/...` or another absolute path. Spaces around it and a trailing `/` are removed. Empty paths are skipped.
+- `path`: `~/...` (Antigravity Gem's home folder), `/sdcard/...` or another absolute path. Spaces around it and a trailing `/` are removed. Empty paths are skipped.
 - `access`: `read`, `write` or `readwrite`. Also accepted: `w` (write), `rw`, `both`, `read-write`, `read_write` (readwrite). Anything else, or nothing, is `read`.
 - `write` means create, change and delete, but not read.
 
@@ -265,7 +265,7 @@ Folders that are (or contain) the home folder or the root of shared storage, and
 "mcp": ["notes_mcp", "theme_mcp"]
 ```
 
-Each server name becomes its own permission `mcp:<server>`, granted or denied on its own. The names are the MCP server names AntiGem knows (for example `notes_mcp`, `theme_mcp`, `browser_mcp`). Details in [mcp.md](mcp.md) and [permissions.md](permissions.md#mcpserver).
+Each server name becomes its own permission `mcp:<server>`, granted or denied on its own. The names are the MCP server names Antigravity Gem knows (for example `notes_mcp`, `theme_mcp`, `browser_mcp`). Details in [mcp.md](mcp.md) and [permissions.md](permissions.md#mcpserver).
 
 ## required_permissions
 
@@ -298,7 +298,7 @@ or
 - The script that runs background tasks while the app is closed. It runs in an invisible page with the SDK ([background.md](background.md)).
 - The path is relative to the app folder; a leading `/` is removed. A path with a `..` part or a part starting with `.` is refused (as if missing).
 - `"type": "module"` loads it as an ES module.
-- Background tasks also need the `background` permission. Without a script, `AntiGem.background.run()` fails with `InvalidStateError` and scheduled runs are skipped with "The manifest has no background script".
+- Background tasks also need the `background` permission. Without a script, `Antigravity Gem.background.run()` fails with `InvalidStateError` and scheduled runs are skipped with "The manifest has no background script".
 
 ## intents
 

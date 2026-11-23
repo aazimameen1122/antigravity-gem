@@ -259,7 +259,7 @@ object ChrootInstaller {
         val file = File(dir, "rootfs.$ext")
         val part = File(dir, "rootfs.$ext.part")
         val response = try {
-            http.newCall(Request.Builder().url(url).header("User-Agent", "AntiGem-Chroot").build()).execute()
+            http.newCall(Request.Builder().url(url).header("User-Agent", "AntigravityGem-Chroot").build()).execute()
         } catch (e: IOException) {
             throw InstallError("Download failed: ${e.message}")
         }
@@ -311,7 +311,7 @@ object ChrootInstaller {
     }
 
     private fun httpText(url: String): String? = try {
-        http.newCall(Request.Builder().url(url).header("User-Agent", "AntiGem-Chroot").build()).execute().use {
+        http.newCall(Request.Builder().url(url).header("User-Agent", "AntigravityGem-Chroot").build()).execute().use {
             if (it.isSuccessful) it.body?.string() else null
         }
     } catch (_: Exception) {

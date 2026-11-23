@@ -428,7 +428,7 @@ object EgmManager {
     }
 
     private suspend fun download(url: String, target: File) = withContext(Dispatchers.IO) {
-        val request = Request.Builder().url(url).header("User-Agent", "AntiGem/${BuildConfig.VERSION_NAME}").build()
+        val request = Request.Builder().url(url).header("User-Agent", "AntigravityGem/${BuildConfig.VERSION_NAME}").build()
         http.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IllegalStateException("Download failed (HTTP ${response.code}): $url")
             val body = response.body ?: throw IllegalStateException("Empty response: $url")
@@ -450,7 +450,7 @@ object EgmManager {
     }
 
     private suspend fun httpGet(url: String, accept: String? = null): String = withContext(Dispatchers.IO) {
-        val builder = Request.Builder().url(url).header("User-Agent", "AntiGem/${BuildConfig.VERSION_NAME}")
+        val builder = Request.Builder().url(url).header("User-Agent", "AntigravityGem/${BuildConfig.VERSION_NAME}")
         if (accept != null) builder.header("Accept", accept)
         val request = builder.build()
         http.newCall(request).execute().use { response ->

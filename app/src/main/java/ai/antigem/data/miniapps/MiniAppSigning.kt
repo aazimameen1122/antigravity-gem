@@ -309,7 +309,7 @@ object MiniAppKeyBackup {
             val values = android.content.ContentValues().apply {
                 put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
                 put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream")
-                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "${android.os.Environment.DIRECTORY_DOWNLOADS}/AntiGem")
+                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "${android.os.Environment.DIRECTORY_DOWNLOADS}/AntigravityGem")
                 put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
             }
             val r = context.contentResolver
@@ -322,7 +322,7 @@ object MiniAppKeyBackup {
             val real = r.query(uri, arrayOf(android.provider.MediaStore.MediaColumns.DISPLAY_NAME), null, null, null)?.use { c -> if (c.moveToFirst()) c.getString(0) else null } ?: name
             "Download/AntiGem/$real"
         } else {
-            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "AntiGem").also { it.mkdirs() }
+            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "AntigravityGem").also { it.mkdirs() }
             var f = File(dir, name); var n = 1
             while (f.exists()) f = File(dir, name.removeSuffix(".agkey") + " (${n++}).agkey")
             f.writeBytes(bytes)

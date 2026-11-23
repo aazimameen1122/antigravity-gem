@@ -1,6 +1,6 @@
 # 11 — Jarvis Voice Assistant
 
-**Jarvis** is AntiGem's hands-free voice assistant. With Jarvis, you can control the entire app, talk to open code files, watch active background tasks, answer approval prompts, and adjust settings using your voice.
+**Jarvis** is Antigravity Gem's hands-free voice assistant. With Jarvis, you can control the entire app, talk to open code files, watch active background tasks, answer approval prompts, and adjust settings using your voice.
 
 ---
 
@@ -132,7 +132,7 @@ Every sub-page under **Settings → Jarvis** controls a specific capability:
 
 ### ❌ Symptom: Jarvis says "Microphone permission required" and stops.
 - **What to check**: Check Android system permissions.
-- **How to fix**: Open Android **Settings → Apps → AntiGem → Permissions → Microphone** and select **Allow only while using the app** (or **Allow all the time** for hands-free background wake phrase).
+- **How to fix**: Open Android **Settings → Apps → Antigravity Gem → Permissions → Microphone** and select **Allow only while using the app** (or **Allow all the time** for hands-free background wake phrase).
 
 ### ❌ Symptom: Wake phrase ("Hey Jarvis") does not trigger.
 - **What to check**: Check trigger mode and Hands-free setting.
@@ -147,4 +147,4 @@ Every sub-page under **Settings → Jarvis** controls a specific capability:
 
 ### ❌ Symptom: Online voice fails or produces no sound.
 - **What to check**: Check API key and network connection for OpenAI or Google Cloud TTS.
-- **How to fix**: Open **Settings → Jarvis → Voice output**. AntiGem automatically falls back to **"This device"** voice if online TTS fails. Tap **Test voice** to verify local speech synthesis.
+- **How to fix**: Open **Settings → Jarvis → Voice output**. Antigravity Gem automatically falls back to **"This device"** voice if online TTS fails. Tap **Test voice** to verify local speech synthesis.

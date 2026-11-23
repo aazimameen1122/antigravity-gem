@@ -666,7 +666,7 @@ object AndroidDevManager {
     }
 
     private suspend fun httpGet(url: String): String = withContext(Dispatchers.IO) {
-        val request = Request.Builder().url(url).header("User-Agent", "AntiGem/${BuildConfig.VERSION_NAME}").build()
+        val request = Request.Builder().url(url).header("User-Agent", "AntigravityGem/${BuildConfig.VERSION_NAME}").build()
         http.newCall(request).execute().use { response ->
             if (response.code == 404) throw IllegalStateException("Not found: $url (is the repository pushed and the source right?)")
             if (!response.isSuccessful) throw IllegalStateException("Download failed (HTTP ${response.code}): $url")

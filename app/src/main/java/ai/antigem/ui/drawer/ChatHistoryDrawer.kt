@@ -677,7 +677,7 @@ fun ChatHistoryDrawer(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "AntiGem",
+                    text = "Antigravity Gem",
                     fontSize = 19.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = (-0.3).sp,

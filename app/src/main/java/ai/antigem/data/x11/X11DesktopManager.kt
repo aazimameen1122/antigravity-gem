@@ -759,7 +759,7 @@ object X11DesktopManager {
     private fun appendLog(line: String) =
         _state.update { it.copy(log = (it.log + line).takeLast(400)) }
 
-    private fun userAgent() = "AntiGem/${BuildConfig.VERSION_NAME}"
+    private fun userAgent() = "AntigravityGem/${BuildConfig.VERSION_NAME}"
 
     /** The companion .deb of the fork's latest release (its file name carries the version). */
     private suspend fun latestForkDebUrl(): String = withContext(Dispatchers.IO) {

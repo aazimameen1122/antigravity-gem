@@ -1,6 +1,6 @@
-# Host your own AntiGem plugin repository
+# Host your own Antigravity Gem plugin repository
 
-A plugin repository is a public GitHub repository with one folder per plugin. Anyone can add it in **Settings → Custom AntiGem Plugins → Repositories** to browse its plugins, install them and get updates. The app downloads only the folder of the plugin being installed, never the whole repository.
+A plugin repository is a public GitHub repository with one folder per plugin. Anyone can add it in **Settings → Custom Antigravity Gem Plugins → Repositories** to browse its plugins, install them and get updates. The app downloads only the folder of the plugin being installed, never the whole repository.
 
 ## Repository layout
 

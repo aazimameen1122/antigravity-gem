@@ -25,7 +25,7 @@ Two apps share data when all of this is true:
 | …or both development apps | Both folders in `~/mini-apps`. A development app never reaches an installed app's data, nor the other way round. |
 | Neither is modified | An installed app whose files no longer match its signature is cut off from the group. |
 
-AntiGem enforces the key rule when installing: a package whose `shared_id` group already holds an installed app signed by another key is not installed. The install screen says:
+Antigravity Gem enforces the key rule when installing: a package whose `shared_id` group already holds an installed app signed by another key is not installed. The install screen says:
 
 > It shares data with the apps of "com.you.suite", and Notes there is signed by Someone Else (key AB12:CD34:EF56:7890), not by this package's developer. Only apps signed with the same key can share data.
 
@@ -37,7 +37,7 @@ Only each app's `data/` folder (on disk: `~/.antigem/mini-apps/<id>/files/`). Ev
 
 | Shared | Not shared |
 |---|---|
-| `data/` files, read and write | `AntiGem.storage`, `localStorage`, `sessionStorage` |
+| `data/` files, read and write | `Antigravity Gem.storage`, `localStorage`, `sessionStorage` |
 | | IndexedDB |
 | | Cookies |
 | | Permissions, picked folders, reminders, background tasks, notifications |
@@ -50,24 +50,24 @@ Each app still uses `data/…` for its own folder. The other apps' folders are `
 
 ```js
 // in com.you.tasks
-await AntiGem.fs.write('app:com.you.notes/inbox/todo.txt', 'Buy milk');
-const items = await AntiGem.fs.list('app:com.you.notes/inbox');
-const text = await AntiGem.fs.read('app:com.you.notes/inbox/todo.txt');
+await Antigravity Gem.fs.write('app:com.you.notes/inbox/todo.txt', 'Buy milk');
+const items = await Antigravity Gem.fs.list('app:com.you.notes/inbox');
+const text = await Antigravity Gem.fs.read('app:com.you.notes/inbox/todo.txt');
 ```
 
 - `app:<own id>/…` is the same as `data/…`.
 - The other app must be present on the phone (installed, or a development folder). Until then, and for any app outside the group, the path is refused with `NotAllowedError` (`app:<id>/… is protected`).
 - The other app is checked on disk on every access. If it is deleted, uninstalled, or its manifest no longer has the same `id` and `shared_id`, its folder can't be reached from that moment on.
 - The root of another app's `data/` folder can't be deleted or moved as a whole; its contents can.
-- `AntiGem.fs.url('app:<id>/photo.jpg')` works like any other readable path (for `<img>`, `<video>`, `fetch`).
-- `app:<id>/…` paths also work in `AntiGem.ui.viewMedia` items and in notification images (`icon`, `smallIcon`, `image`).
+- `Antigravity Gem.fs.url('app:<id>/photo.jpg')` works like any other readable path (for `<img>`, `<video>`, `fetch`).
+- `app:<id>/…` paths also work in `Antigravity Gem.ui.viewMedia` items and in notification images (`icon`, `smallIcon`, `image`).
 
 ## Finding the group
 
-`AntiGem.fs.folders()` lists the group's folders with `source: "shared"`:
+`Antigravity Gem.fs.folders()` lists the group's folders with `source: "shared"`:
 
 ```js
-const shared = (await AntiGem.fs.folders()).filter(f => f.source === 'shared');
+const shared = (await Antigravity Gem.fs.folders()).filter(f => f.source === 'shared');
 // [{ path: 'app:com.you.notes', access: 'readwrite', source: 'shared', app: { id: 'com.you.notes', name: 'Notes' } }]
 ```
 
@@ -80,21 +80,21 @@ Notes collects items, Tasks drops new ones into Notes' inbox.
 ```js
 // Tasks: send a task to Notes, if Notes is installed
 async function sendToNotes(title) {
-  const notes = (await AntiGem.fs.folders()).find(f => f.source === 'shared' && f.app.id === 'com.you.notes');
-  if (!notes) return AntiGem.ui.toast('Install Notes to send tasks there');
-  await AntiGem.fs.writeJSON(`app:com.you.notes/inbox/${Date.now()}.json`, { title, from: 'tasks' });
+  const notes = (await Antigravity Gem.fs.folders()).find(f => f.source === 'shared' && f.app.id === 'com.you.notes');
+  if (!notes) return Antigravity Gem.ui.toast('Install Notes to send tasks there');
+  await Antigravity Gem.fs.writeJSON(`app:com.you.notes/inbox/${Date.now()}.json`, { title, from: 'tasks' });
 }
 ```
 
 ```js
 // Notes: read its own inbox (the same folder, seen from inside)
 async function readInbox() {
-  if (!(await AntiGem.fs.exists('data/inbox'))) return;   // list() fails on a missing folder
-  const files = await AntiGem.fs.list('data/inbox');
+  if (!(await Antigravity Gem.fs.exists('data/inbox'))) return;   // list() fails on a missing folder
+  const files = await Antigravity Gem.fs.list('data/inbox');
   for (const f of files.filter(f => f.type === 'file')) {
-    const item = await AntiGem.fs.readJSON(f.path);
+    const item = await Antigravity Gem.fs.readJSON(f.path);
     addNote(item.title);
-    await AntiGem.fs.delete(f.path);
+    await Antigravity Gem.fs.delete(f.path);
   }
 }
 ```

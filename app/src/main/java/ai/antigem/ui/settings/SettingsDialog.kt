@@ -85,13 +85,13 @@ import ai.antigem.data.daemon.IdeDaemonManager
 import ai.antigem.data.daemon.IdeApiClient
 
 enum class SettingsSection(val title: String, val subtitle: String) {
-    MAIN("Settings & Preferences", "Configure your AntiGem experience"),
+    MAIN("Settings & Preferences", "Configure your Antigravity Gem experience"),
     THEMES("Themes", "Light and dark mode, and the theme gallery"),
     APPEARANCE("Appearance", "Chat text size, agent steps, message stats, header icons, the app switcher and Gemmy"),
     STEM_RENDERING("STEM & diagrams", "Chemistry, graphs, geometry, simulations, circuits and offline Mermaid in chats"),
-    SERVERS("Where agents run", "This phone (AntiGem or Ubuntu chroot) or your server, and how the app reaches it"),
-    CONNECT_PC("Connect to PC", "Use the agents on your PC (AntiGem in VS Code) from this phone"),
-    WEBVIEW_EXTENSIONS("Custom AntiGem Plugins", "Install and manage plugins: MCP tools and skills"),
+    SERVERS("Where agents run", "This phone (Antigravity Gem or Ubuntu chroot) or your server, and how the app reaches it"),
+    CONNECT_PC("Connect to PC", "Use the agents on your PC (Antigravity Gem in VS Code) from this phone"),
+    WEBVIEW_EXTENSIONS("Custom Antigravity Gem Plugins", "Install and manage plugins: MCP tools and skills"),
     SLASH_COMMANDS("Slash Commands", "Your own / commands and what they expand to"),
     MCP("MCP Servers", "Model Context Protocol tools & integrations"),
     SKILLS_PLUGINS("Skills & Plugins", "Agent capabilities, Google plugins, and extensions"),
@@ -143,7 +143,7 @@ enum class SettingsSection(val title: String, val subtitle: String) {
     TERMUX_SUPPORT("Termux Support", "Termux:API and the X11 desktop"),
     TERMUX_API("Termux:API", "How termux-api commands are handled"),
     X11_DESKTOP("X11 Desktop", "Linux desktop apps with Termux:X11"),
-    CHANGELOG("What's new", "Every AntiGem version and what changed"),
+    CHANGELOG("What's new", "Every Antigravity Gem version and what changed"),
     ABOUT("About & Info", "App version, package details, and bridge export");
 
     /** The Jarvis section this page shows (Settings → Jarvis → …), or null. */
@@ -947,7 +947,7 @@ private fun MainSettingsMenu(
                     when {
                         ai.antigem.data.preferences.AuthPreferences.currentRemoteMode -> "Server"
                         ai.antigem.data.local.chroot.ChrootManager.isActiveNow() -> "Ubuntu chroot"
-                        else -> "AntiGem"
+                        else -> "Antigravity Gem"
                     } + if (serverColor == QuotaGreen) "" else " · $serverValue", serverColor),
                 pcRow
             ),
@@ -8626,17 +8626,24 @@ private fun AboutSubScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ai.antigem.ui.components.AppIconImage(
-                    contentDescription = "AntiGem",
+                    contentDescription = "Antigravity Gem",
                     modifier = Modifier
                         .size(64.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "AntiGem",
+                    text = "Antigravity Gem",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = "by Aazim Ameen",
+                    fontSize = 12.5.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
                 )
                 Text(
                     text = "Antigravity Mobile Hub & AI Pair Programmer",

@@ -91,7 +91,7 @@ object ConversationShareHelper {
                 Pair(content.toByteArray(Charsets.UTF_8), fn)
             }
 
-            // 1. Auto-save to Downloads/AntiGem/Exports
+            // 1. Auto-save to Downloads/AntigravityGem/Exports
             val savedFileName = saveToDownloadsExports(context, fileName, bytes)
 
             // 2. Save a copy to cache for sharing via FileProvider
@@ -113,12 +113,12 @@ object ConversationShareHelper {
                 if (snackbarHostState != null) {
                     kotlinx.coroutines.CoroutineScope(Dispatchers.Main).launch {
                         snackbarHostState.showSnackbar(
-                            message = "$savedFileName saved to Downloads/AntiGem/Exports",
+                            message = "$savedFileName saved to Downloads/AntigravityGem/Exports",
                             duration = SnackbarDuration.Short
                         )
                     }
                 } else {
-                    AppToastHelper.showToast("$savedFileName saved to Downloads/AntiGem/Exports", ChatToastType.SUCCESS)
+                    AppToastHelper.showToast("$savedFileName saved to Downloads/AntigravityGem/Exports", ChatToastType.SUCCESS)
                 }
             }
         } catch (e: Exception) {
@@ -155,7 +155,7 @@ object ConversationShareHelper {
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
                     put(MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/AntiGem/Exports")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/AntigravityGem/Exports")
                     put(MediaStore.MediaColumns.IS_PENDING, 1)
                 }
                 val resolver = context.contentResolver
@@ -171,13 +171,13 @@ object ConversationShareHelper {
                     resolver.update(itemUri, contentValues, null, null)
                 }
             } else {
-                val downloadsDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "AntiGem/Exports")
+                val downloadsDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "AntigravityGem/Exports")
                 if (!downloadsDir.exists()) downloadsDir.mkdirs()
                 val targetFile = File(downloadsDir, fileName)
                 targetFile.writeBytes(bytes)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Failed saving to Downloads/AntiGem/Exports: ${e.message}", e)
+            Log.e(TAG, "Failed saving to Downloads/AntigravityGem/Exports: ${e.message}", e)
         }
         return fileName
     }

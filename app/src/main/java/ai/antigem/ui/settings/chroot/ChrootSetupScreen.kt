@@ -331,7 +331,7 @@ fun ChrootSetupScreen(
                 // ---------------- source
                 ChrootSection("Source", "Where the Ubuntu rootfs comes from", Icons.Outlined.Cloud) {
                     ChrootRadioRow(
-                        "AntiGem Ubuntu (prebuilt)",
+                        "Antigravity Gem Ubuntu (prebuilt)",
                         "Ubuntu 24.04 with sudo, git, curl, Node.js, Python and the Android fixes already set up: the quickest start.",
                         selected = source == SourceChoice.PREBUILT,
                         enabled = prebuiltAvailable == true,

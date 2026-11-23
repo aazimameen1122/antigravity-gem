@@ -219,7 +219,7 @@ fun AppPermissionsDialog(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
-                    text = "Welcome to AntiGem",
+                    text = "Welcome to Antigravity Gem",
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
                     color = textPrimary,

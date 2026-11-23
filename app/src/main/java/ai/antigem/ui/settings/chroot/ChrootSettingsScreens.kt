@@ -164,8 +164,8 @@ fun TermuxRuntimeCard(cardBg: Color, cardBorder: BorderStroke, onInstall: () -> 
     LaunchedEffect(installerState) {
         if (installerState is ai.antigem.data.local.LocalInstallerState.Success) onInstalled()
     }
-    ChrootSection("AntiGem", if (installed) "AntiGem's built-in Linux environment, in its own files: no root needed, packages with pkg install"
-        else "Not installed: AntiGem's built-in Linux environment (no root needed)",
+    ChrootSection("Antigravity Gem", if (installed) "Antigravity Gem's built-in Linux environment, in its own files: no root needed, packages with pkg install"
+        else "Not installed: Antigravity Gem's built-in Linux environment (no root needed)",
         Icons.Outlined.Terminal, AppColors.accentIndigo, cardBg, cardBorder) {
         if (!installed) {
             Button(onClick = onInstall, colors = ButtonDefaults.buttonColors(containerColor = ClaudeTerracotta), shape = RoundedCornerShape(10.dp)) {
@@ -551,7 +551,7 @@ fun ChrootManageScreen(
             Text("Clean image (to share)", fontSize = 13.5.sp, fontWeight = FontWeight.SemiBold, color = AppColors.onBackground)
             ChrootNote("Leaves out the home folders, logins and history, AntiGem's files, logs and the apt lists. Pick a folder: " +
                 "${ai.antigem.data.local.chroot.ChrootInstaller.prebuiltAsset()} and its .sha256 are written there, ready for the GitHub release " +
-                "${ai.antigem.data.local.chroot.ChrootInstaller.PREBUILT_TAG} that the \"AntiGem Ubuntu (prebuilt)\" source downloads. Slow (xz): " +
+                "${ai.antigem.data.local.chroot.ChrootInstaller.PREBUILT_TAG} that the \"Antigravity Gem Ubuntu (prebuilt)\" source downloads. Slow (xz): " +
                 "several minutes.")
             OutlinedButton(onClick = { imageLauncher.launch(null) }, enabled = task?.running != true, shape = RoundedCornerShape(10.dp),
                 modifier = Modifier.padding(top = 6.dp)) { Text("Export a clean image…") }

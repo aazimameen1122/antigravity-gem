@@ -644,7 +644,7 @@ internal fun ServersSubScreen(
                 Text("This phone", fontSize = 11.5.sp, fontWeight = FontWeight.SemiBold, color = subtle)
                 Spacer(Modifier.height(4.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    ModeOption("AntiGem", !remote && !phoneChroot, Modifier.weight(1f)) { selectPhone(false) }
+                    ModeOption("Antigravity Gem", !remote && !phoneChroot, Modifier.weight(1f)) { selectPhone(false) }
                     ModeOption("Ubuntu chroot", !remote && phoneChroot, Modifier.weight(1f)) { selectPhone(true) }
                 }
                 Spacer(Modifier.height(8.dp))
